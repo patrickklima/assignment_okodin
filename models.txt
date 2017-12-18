@@ -1,0 +1,7 @@
+sequelize model:create --name User --attributes username:string email:string profileID:integer
+
+sequelize model:create --name Profile --attributes userId:integer picUrl:string age:integer location:string gender:string isSingle:boolean height:integer hasKids:boolean aboutMe:text
+
+sequelize model:create --name Talent --attributes talentName:string profileID:integer
+
+sequelize model:create --name Favorite --attributes favoriteThing:string profileID:integer

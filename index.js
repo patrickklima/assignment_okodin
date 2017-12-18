@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 
+// ----------------------------------------
+// Sequelize Models
+// ----------------------------------------
+const models = require('./models');
+const sequelize = models.sequelize;
+const User = models.User;
 
 // ----------------------------------------
 // App Variables
 // ----------------------------------------
 app.locals.appName = 'OKOdin';
-
 
 // ----------------------------------------
 // ENV
@@ -15,13 +20,11 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-
 // ----------------------------------------
 // Body Parser
 // ----------------------------------------
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 // ----------------------------------------
 // Sessions/Cookies
@@ -37,6 +40,7 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  if (req.session.data) res.locals.currentUser = req.session.data.username;
   next();
 });
 
@@ -87,10 +91,11 @@ app.use(morganToolkit());
 // ----------------------------------------
 // Routes
 // ----------------------------------------
-app.use('/', (req, res) => {
-  req.flash('Hi!');
-  res.render('welcome/index');
-});
+var logInOutRoutes = require('./routers/login-logout-routes');
+var profilesRoutes = require('./routers/profiles-routes');
+
+app.use('/login',logInOutRoutes);
+app.use('/profiles', profilesRoutes);
 
 
 // ----------------------------------------
@@ -107,6 +112,19 @@ const hbs = expressHandlebars.create({
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
+
+// ----------------------------------------
+// Home 
+// ----------------------------------------
+app.get('/', (req, res) => {
+  req.flash('Hi there!');
+  if (req.session.data) {
+    res.render('welcome/index', {currentUser: req.session.data.username});
+  } else {
+    res.render('welcome/index');
+  }
+});
 
 
 // ----------------------------------------

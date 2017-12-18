@@ -1,22 +1,25 @@
 {
-  "name": "genr8",
+  "name": "assignment_okodin",  
   "version": "1.0.0",
-  "description": "Genr8 =====",
+  "description": "Ok Odin",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "sql": "node_modules/sequelize-cli/lib/sequelize",
+    "seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BideoWego/genr8.git"
+    "url": "git+https://github.com/patrickklima/assignment_okodin.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "patrickklima",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BideoWego/genr8/issues"
+    "url": "https://github.com/patrickklima/assignment_okodin/issues"
   },
-  "homepage": "https://github.com/BideoWego/genr8#readme",
+  "homepage": "https://github.com/patrickklima/assignment_okodin#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
@@ -28,6 +31,10 @@
     "load-helpers": "^1.0.1",
     "method-override": "^2.3.10",
     "morgan": "^1.9.0",
-    "morgan-toolkit": "^1.0.2"
+    "morgan-toolkit": "^1.0.2",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.27.0",
+    "sequelize-cli": "^3.2.0"
   }
 }
